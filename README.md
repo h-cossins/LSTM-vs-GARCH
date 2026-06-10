@@ -56,7 +56,7 @@ In addition, the LSTM in this project uses rolling 20 day windows in order to ma
 
 ## The Data
 
-Data was sourced from yfinance for FTSE 100 (2010-2025) - allowing my model to capture important market regimes including the 2008 financial crisis. Prices weren't used directly, instead realised volatility was calculated using the formula described above. Log returns are better than raw prices as they are stationary and additive rather than exponential, this is important for both LSTM and GARCH models. The train/test split was directly applied to the realised volatility, the training section ended in 2019, making the 2020 COVID-19 crash a genuine out-of-sample stress test. A visualisation of the data is shown below:
+Data was sourced from yfinance for FTSE 100 (2005-2025) - allowing my model to capture important market regimes including the 2008 financial crisis. Prices weren't used directly, instead realised volatility was calculated using the formula described above. Log returns are better than raw prices as they are stationary and additive rather than exponential, this is important for both LSTM and GARCH models. The train/test split was directly applied to the realised volatility, the training section ended in 2019, making the 2020 COVID-19 crash a genuine out-of-sample stress test. A visualisation of the data is shown below:
 
 ![Data Overview](images/dataoverview.png)
 
