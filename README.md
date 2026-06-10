@@ -81,3 +81,14 @@ The line for the GARCH forecast is consistently well above the realised volatili
 - **Realised vs Implied Volatility** My LSTM uses realised volatility which is backward-looking. In practice traders are more prone to using implied volatility, which looks forward into the market's future behaviour.
 - **Hyperparameter Tuning** The LSTM parameters (number of layers, hidden size etc.) weren't exhaustively altered - a more systematic approach might improve performance.
 - **Volatility Regime Changes** The model is trained on a fixed historical period, it may not react well to shifts in market behaviour - such as a prolonged low volatility period, or a crisis unlike those seen in the training data.
+
+## How to Run
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/h-cossins/lstm-vs-garch.git
+cd lstm-vs-garch
+pip install -r requirements.txt
+```
+
+Then open the notebooks in Colab or Jupyter and run cells sequentially. A GPU runtime is recommended in Colab.
