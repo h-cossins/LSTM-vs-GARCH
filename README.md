@@ -58,12 +58,26 @@ In addition, the LSTM in this project uses rolling 20 day windows in order to ma
 
 Data was sourced from yfinance for FTSE 100 (2010-2025) - allowing my model to capture important market regimes including the 2008 financial crisis. Prices weren't used directly, instead realised volatility was calculated using the formula described above. Log returns are better than raw prices as they are stationary and additive rather than exponential, this is important for both LSTM and GARCH models. The train/test split was directly applied to the realised volatility directly, the training section ended in 2019, making the 2020 COVID-19 crash a genuine out-of-sample stress test. 
 
+
+
 ## Results
 
-After implementing both models, it was clear that the LSTM moodel did a better job at forecasting volatility, it outperformed the GARCH(1,1) model in both evaluation metrics - RMSE and MAE. The results are as follows:
+After implementing both models, results transparently suggest that the LSTM outperformed the GARCH(1,1) model, it was better in both evaluation metrics - RMSE and MAE. The results are as follows:
 
 | Evaluation Metric | GARCH(1,1) | LSTM |
 |-------------------|------------|------|
 | RMSE | 0.0239 | 0.0107 |
 | MAE | 0.0192 | 0.0074 |
 
+For this data, the RMSE has a 55.2% reduction, and the MAE has a 61.5% reduction - clear evidence of an improvement. The chart below displays the forecasts made by both the LSTM and the GARCH(1,1), against the previously calculated realised volatility. It is immediately evident that the LSTM offers a better performance. 
+
+![LSTM vs Actual Volatility](images/garchandlstmvsactual.png)
+
+The line for the GARCH forecast is consistently well above the realised volatility, it also expresses excessive fluctuation suggesting the model is overly reactive to recent return shocks. Despite this, it still brings a well representative forecast of the real data, following its pattern relatively confidently. In contrast, the LSTM forecast remains within close bounds of realised volatility throughout the test period. While not exact, the deviation is substantially smaller than that of the GARCH model.
+
+## Limitations
+
+- **Single Index** The LSTM was only tested on data from the FTSE 100, this makes it tough to asses how to model would perform on more generalised markets. Performing tests against multiple indices would reveal further constraints in our model, for example overfitting.
+- **Realised vs Implied Volatility** My LSTM uses realised volatility which is backward-looking. In practice traders are more prone to using implied volatility, which looks forward into the market's future behaviour.
+- **Hyperparameter Tuning** The LSTM parameters (number of layers, hidden size etc.) weren't exhaustively altered - a more systematic approach might improve performance.
+- **Volatility Regime Changes** The model is trained on a fixed historical period, it may not react well to shifts in market behaviour - such as a prolonged low volatility period, or a crisis unlike those seen in the training data.
