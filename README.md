@@ -56,9 +56,11 @@ In addition, the LSTM in this project uses rolling 20 day windows in order to ma
 
 ## The Data
 
-Data was sourced from yfinance for FTSE 100 (2010-2025) - allowing my model to capture important market regimes including the 2008 financial crisis. Prices weren't used directly, instead realised volatility was calculated using the formula described above. Log returns are better than raw prices as they are stationary and additive rather than exponential, this is important for both LSTM and GARCH models. The train/test split was directly applied to the realised volatility directly, the training section ended in 2019, making the 2020 COVID-19 crash a genuine out-of-sample stress test. 
+Data was sourced from yfinance for FTSE 100 (2010-2025) - allowing my model to capture important market regimes including the 2008 financial crisis. Prices weren't used directly, instead realised volatility was calculated using the formula described above. Log returns are better than raw prices as they are stationary and additive rather than exponential, this is important for both LSTM and GARCH models. The train/test split was directly applied to the realised volatility, the training section ended in 2019, making the 2020 COVID-19 crash a genuine out-of-sample stress test. A visualisation of the data is shown below:
 
+![Data Overview](images/dataoverview.png)
 
+The data aligns well with the history of the financial markets, fluctuating consistently, and spiking - a reflection of real world crises, such as the Covid-19 crisis in 2020 and the 2008 financial crisis, times of high volatility.
 
 ## Results
 
@@ -77,7 +79,7 @@ The line for the GARCH forecast is consistently well above the realised volatili
 
 ## Limitations
 
-- **Single Index** The LSTM was only tested on data from the FTSE 100, this makes it tough to asses how to model would perform on more generalised markets. Performing tests against multiple indices would reveal further constraints in our model, for example overfitting.
+- **Single Index** The LSTM was only tested on data from the FTSE 100, this makes it tough to assess how to model would perform on more generalised markets. Performing tests against multiple indices would reveal further constraints in our model, for example overfitting.
 - **Realised vs Implied Volatility** My LSTM uses realised volatility which is backward-looking. In practice traders are more prone to using implied volatility, which looks forward into the market's future behaviour.
 - **Hyperparameter Tuning** The LSTM parameters (number of layers, hidden size etc.) weren't exhaustively altered - a more systematic approach might improve performance.
 - **Volatility Regime Changes** The model is trained on a fixed historical period, it may not react well to shifts in market behaviour - such as a prolonged low volatility period, or a crisis unlike those seen in the training data.
@@ -91,4 +93,4 @@ cd lstm-vs-garch
 pip install -r requirements.txt
 ```
 
-Then open the notebooks in Colab or Jupyter and run cells sequentially. A GPU runtime is recommended in Colab.
+Then open the notebook, My_Own_LSTM.ipynb in Colab or Jupyter and run cells sequentially. A GPU runtime is recommended in Colab.
